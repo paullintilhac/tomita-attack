@@ -5,7 +5,8 @@
 ## This program is licenced under the BSD 2-Clause licence,
 ## contained in the LICENCE file in this directory.
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 import os
 import pickle
@@ -18,7 +19,7 @@ from keras.layers import Dense, Dropout, Activation, Flatten, Embedding, LSTM, R
 from keras.layers import Conv2D, MaxPooling2D
 from keras.utils import np_utils
 from keras.models import load_model
-from keras.layers.core import K
+from tensorflow.keras import backend as K # This is the most common usecase for keras using K
 
 
 from keras.preprocessing import sequence

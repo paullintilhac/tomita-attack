@@ -5,7 +5,8 @@
 ## This program is licenced under the BSD 2-Clause licence,
 ## contained in the LICENCE file in this directory.
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 import time
 
@@ -46,7 +47,7 @@ def generate_data(data, samples, targeted=True, start=0, inception=False):
     """
     inputs = []
     targets = []
-    print("Targated : ", targeted)
+    print("Targeted : ", targeted)
     for i in range(samples):
         if targeted:
             if inception:
@@ -73,8 +74,8 @@ if __name__ == "__main__":
     dis = []
     with tf.Session() as sess:
         #data, model = RNN(), RNNModel("models\imdb_model.h5", sess)  #MNIST(), MNISTModel("models/mnist", sess)
-        data, model = RNN_Keras(), RNNModel_Keras("models\imdb_model.h5")
-
+        data, model = RNN_Keras(), RNNModel_Keras("models/imdb_model.h5")
+        print("data[0] size: " + str(data))
         attack = CarliniL2(sess, model, batch_size=1000, max_iterations=1000, confidence=0, targeted=True)
 
         inputs, targets = generate_data(data, samples=1000, targeted=True, start=0, inception=False)
